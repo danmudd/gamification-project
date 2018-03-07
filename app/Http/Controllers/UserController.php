@@ -45,7 +45,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = $this->user->get($id, ['comments']);
+        $user = $this->user->get($id);
         $roles = $this->role->getRoleArray();
         $next = $this->user->next('id');
         $previous = $this->user->previous('id');

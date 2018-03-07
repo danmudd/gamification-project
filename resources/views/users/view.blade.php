@@ -47,12 +47,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($user->comments as $comment)
-                            <tr>
-                                <td><a href="{{ route('applications.show', ['id' => $comment->application_id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
-                                <td>{{ $comment->comment }}</td>
-                            </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </div>
