@@ -20,6 +20,6 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "bootbox": "^4.4.0",
+        "bootbox": "^4.4.0"
     }
 }
