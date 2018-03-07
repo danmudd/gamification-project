@@ -7,8 +7,189 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "node_modules/jasny-bootstrap/scss/build/jasny-bootstrap";
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+$col: #428bca;
+$col-dark: darken($col, 6.5%);
+
+$grid-float-breakpoint: 992px;
+$navmenu-default-color: $col;
+$navmenu-default-link-color: $col;
+$navmenu-default-link-hover-bg: #eee;
+$navmenu-default-link-hover-color: $col-dark;
+$navmenu-default-link-active-color: $col-dark;
+$nav-link-padding: 10px 20px;
+
+body
+{
+  padding-top: 50px;
+}
+
+.navbar
+{
+  display: block;
+  text-align: center;
+  z-index: 1040;
+}
+.navbar-brand
+{
+  display: inline-block;
+  float: none;
+  padding: 5px 15px;
+}
+
+.navbar-toggle
+{
+  float: left;
+  margin-left: 15px;
+}
+
+
+.navmenu
+{
+  padding-top: 50px;
+}
+
+.navmenu-title
+{
+  margin-top: 40px;
+  padding: $nav-link-padding;
+  display: block;
+  background-color: $col;
+  color: #fff;
+}
+
+.navmenu-default .navmenu-nav > .open > ul > li > a,
+.navmenu-default .navmenu-offcanvas .navmenu-nav > .open > ul > li > a
+{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+.navmenu-default .navmenu-nav > .open > ul > li > a:hover,
+.navmenu-default .navmenu-nav > .open > ul > li > a:focus,
+.navbar-default .navbar-offcanvas .navmenu-nav > .open > ul > li > a:hover,
+.navbar-default .navbar-offcanvas .navmenu-nav > .open > ul > li > a:focus
+{
+  background-color: darken($navmenu-default-border, 2%);
+}
+
+.navmenu li > a > .glyphicon
+{
+  float: right;
+}
+
+.navmenu .bottom
+{
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  position: absolute;
+  bottom: 0;
+}
+
+.jumbotron
+{
+  margin-top: 20px;
+}
+
+@media (min-width: 1px)
+{
+  .navbar-toggle
+  {
+    display: block;
+  }
+}
+
+@media (min-width: 992px)
+{
+  .navbar-toggle
+  {
+    display: none;
+  }
+}
+
+// Override for bootstrap navbar dropdown styling.
+@media (max-width: 991px) {
+  .navbar-nav .open .dropdown-menu {
+    position: absolute;
+    float: left;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+
+  }
+}
+
+.row.admin-panels
+{
+  margin-bottom: 30px;
+}
+
+.row.admin-panels > div > .well
+{
+  padding-top: 48px;
+  padding-bottom: 48px;
+  box-sizing: border-box;
+  display: block;
+  vertical-align: middle;
+  min-height: 240px;
+  background-color: $col;
+  height: 100%;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.row.admin-panels > div > .well > .wrapper
+{
+  display: table;
+  width: 100%;
+}
+
+.row.admin-panels > div > .well > .wrapper > h1
+{
+  line-height: 1;
+  font-size: 142px;
+  display: table-cell;
+}
+
+.panel-user
+{
+  text-align: center;
+}
+
+.navmenu-nav.dropdown-menu
+{
+  position:relative;
+}
+
+.error-page
+{
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.error-actions
+{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.error-actions .btn
+{
+  margin-right: 10px;
+}
+
+.inline
+{
+  display: inline;
+}
+
+.inline button
+{
+  margin-left: 10px;
 }
