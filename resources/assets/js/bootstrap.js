@@ -11,7 +11,9 @@ window.Popper = require('popper.js').default;
 try {
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
+    require('bootstrap-sass');
+    require('jasny-bootstrap/dist/js/jasny-bootstrap');
+    global.bootbox = require('bootbox');
 } catch (e) {}
 
 /**

@@ -6,7 +6,8 @@
 @import "variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import '~jasny-bootstrap/scss/jasny-bootstrap';
 
 $col: #428bca;
 $col-dark: darken($col, 6.5%);

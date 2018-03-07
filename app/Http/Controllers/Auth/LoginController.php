@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -34,6 +35,30 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Override AuthenticatesUsers username function to allow for dual user/email login.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'username';
+    }
+
+    /**
+     * Override AuthenticatesUsers credentials function to allow for dual user/email login.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function credentials(Request $request)
+    {
+        $userIn = $request->{$this->username()};
+        $userCol = filter_var($userIn, FILTER_VALIDATE_EMAIL) ? 'email' : $this->username();
+
+        return [$userCol => $userIn, 'password' => $request->password];
     }
 }
