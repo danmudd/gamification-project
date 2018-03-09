@@ -34,24 +34,6 @@
                 </table>
             </div>
         </div>
-
-        <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h3 class="panel-title">Comments</h3></div>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th><span class="glyphicon glyphicon-th-list"></span></th>
-                                <th width="100%">Comment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
 @stop
 
