@@ -165,7 +165,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         EloquentFilter\ServiceProvider::class,
-        AdamWathan\BootForms\BootFormsServiceProvider::class
+        Galahad\BootForms\BootFormsServiceProvider::class,
 
     ],
 
@@ -216,7 +216,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'BootForm' => AdamWathan\BootForms\Facades\BootForm::class,
+        'BootForm' => Galahad\BootForms\Facades\BootForm::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
     ],

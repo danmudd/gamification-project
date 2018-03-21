@@ -30,5 +30,6 @@ class ApplicationRepositoryProvider extends ServiceProvider
         $this->app->bind('App\Repositories\Users\IUserRepository', 'App\Repositories\Users\UserRepository');
         $this->app->bind('App\Repositories\Roles\IRoleRepository', 'App\Repositories\Roles\RoleRepository');
         $this->app->bind('App\Repositories\Permissions\IPermissionRepository', 'App\Repositories\Permissions\PermissionRepository');
+        $this->app->bind('App\Repositories\Modules\IModuleRepository', 'App\Repositories\Modules\ModuleRepository');
     }
 }

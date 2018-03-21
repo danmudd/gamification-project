@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Module;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -67,6 +68,49 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'roles.destroy',
                 'display_name' => 'Destroy roles'
+            ]
+        );
+
+
+        $pMC = Permission::create(
+            [
+                'name' => 'modules.create',
+                'display_name' => 'Create modules'
+            ]
+        );
+
+        $pMV = Permission::create(
+            [
+                'name' => 'modules.view',
+                'display_name' => 'View modules'
+            ]
+        );
+
+        $pMU = Permission::create(
+            [
+                'name' => 'modules.update',
+                'display_name' => 'Update modules'
+            ]
+        );
+
+        $pMD = Permission::create(
+            [
+                'name' => 'modules.destroy',
+                'display_name' => 'Destroy modules'
+            ]
+        );
+
+        $pMUA = Permission::create(
+            [
+                'name' => 'modules.users.add',
+                'display_name' => 'Add a user to a module'
+            ]
+        );
+
+        $pMUR = Permission::create(
+            [
+                'name' => 'modules.users.remove',
+                'display_name' => 'Remove a user from a module'
             ]
         );
 
@@ -144,20 +188,39 @@ class DatabaseSeeder extends Seeder
 
         $pU = array($pUU, $pUC, $pUV, $pUD);
         $pR = array($pRU, $pRC, $pRV, $pRD);
+        $pM = array($pMU, $pMC, $pMV, $pMD);
+        $pMU = array($pMUA, $pMUR);
 
         // all perms
-        $adminRole->attachPermissions(array_merge($pU, $pR));
+        $adminRole->attachPermissions(array_merge($pU, $pR, $pM, $pMU));
         // user view, application view, edit, delete, role view, all attachments, all comments
-        $devRole->attachPermissions(array($pUV, $pRV));
+        $devRole->attachPermissions(array($pUV, $pRV, $pMV));
         // user view, role view, all applications, attachments, comments
-        $managerRole->attachPermissions(array($pUV, $pRV));
+        $managerRole->attachPermissions(array($pUV, $pRV, $pMV));
         // all views
-        $testRole->attachPermissions(array($pRV, $pUV));
+        $testRole->attachPermissions(array($pRV, $pUV, $pMV));
 
 
         $user->attachRole($adminRole);
         $user2->attachRole($testRole);
         $user3->attachRole($devRole);
         $manager->attachRole($managerRole);
+
+        $mod1 = Module::create(
+            [
+                'code' => 'CET105',
+                'name' => 'Web Development',
+                'description' => 'Intro to web dev!'
+            ]
+        );
+
+        $mod2 = Module::create(
+            [
+                'code' => 'CET205',
+                'name' => 'Advanced Web Development',
+                'description' => 'More complex materials!'
+            ]
+        );
+
     }
 }

@@ -34,6 +34,35 @@
                 </table>
             </div>
         </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="pull-left">Modules</h4>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th><span class="glyphicon glyphicon-th-list"></span></th>
+                                <th>Code</th>
+                                <th>Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($user->modules as $module)
+                                <tr>
+                                    <td><a href="{{ route('modules.show', ['id' => $module->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
+                                    <td>{{ $module->code }}</td>
+                                    <td>{{ $module->name }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @stop
 

@@ -34,7 +34,5 @@ class RoleRepository extends BaseRepository implements IRoleRepository
         $role = $this->model->find($role);
 
         $role->detachPermission($thing);
-
-
     }
 }

@@ -22,19 +22,23 @@ $this->post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/users', 'UserController@index')->name('users.index')->middleware('permission:users.view');
-//Route::get('/users/create', 'UserController@create')->name('users.create')->middleware('permission:users.create');
 Route::post('/users', 'UserController@store')->name('users.store')->middleware('permission:users.create');
 Route::get('/users/{user}', 'UserController@show')->name('users.show')->middleware('permission:users.view');
-//Route::get('/users/{user}/edit', 'UserController@show')->name('users.edit')->middleware('permission:users.update');
 Route::put('/users/{user}', 'UserController@update')->name('users.update')->middleware('permission:users.update');
 Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy')->middleware('permission:users.destroy');
 
 Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('permission:roles.view');
-//Route::get('/roles/create', 'RoleController@create')->name('roles.create')->middleware('permission:roles.create');
 Route::post('/roles', 'RoleController@store')->name('roles.store')->middleware('permission:roles.create');
 Route::get('/roles/{role}', 'RoleController@show')->name('roles.show')->middleware('permission:roles.view');
-//Route::get('/roles/{role}/edit', 'RoleController@update')->name('roles.edit')->middleware('permission:roles.update');
 Route::put('/roles/{role}', 'RoleController@update')->name('roles.update')->middleware('permission:roles.update');
 Route::delete('/roles/{role}', 'RoleController@destroy')->name('roles.destroy')->middleware('permission:roles.destroy');
 Route::post('/roles/{role}/permissions', 'RoleController@addPermission')->name('roles.permissions.add')->middleware('permission:roles.permissions.add');
 Route::delete('/roles/{role}/permissions/{permission}', 'RoleController@removePermission')->name('roles.permissions.remove')->middleware('permission:roles.permissions.remove');
+
+Route::get('/modules', 'ModuleController@index')->name('modules.index')->middleware('permission:modules.view');
+Route::post('/modules', 'ModuleController@store')->name('modules.store')->middleware('permission:modules.create');
+Route::get('/modules/{module}', 'ModuleController@show')->name('modules.show')->middleware('permission:modules.view');
+Route::put('/modules/{module}', 'ModuleController@update')->name('modules.update')->middleware('permission:modules.update');
+Route::delete('/modules/{module}', 'ModuleController@destroy')->name('modules.destroy')->middleware('permission:modules.destroy');
+Route::post('/modules/{module}/users', 'ModuleController@addUser')->name('modules.users.add')->middleware('permission:modules.users.add');
+Route::delete('/modules/{module}/users/{user}', 'ModuleController@removeUser')->name('modules.users.remove')->middleware('permission:modules.users.remove');

@@ -4,6 +4,7 @@
 
     <ul class="nav navmenu-nav">
         <li><a href="{{ route('home') }}">Home <span class="glyphicon glyphicon-home"></span></a></li>
+        @permission('modules.view')<li><a href="{{ route('modules.index') }}">Modules <span class="glyphicon glyphicon-hdd"></span></a></li>@endpermission
 
         @permission('applications.view')
         <li class="dropdown">
