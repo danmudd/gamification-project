@@ -11,7 +11,7 @@ class Module extends Model
         'description',
     ];
 
-    public function work()
+    public function works()
     {
         return $this->hasMany('App\Models\Work');
     }

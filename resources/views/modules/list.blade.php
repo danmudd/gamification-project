@@ -58,7 +58,7 @@
 <script>
     $(function()
     {
-        @permission('modules.destroy')
+        @permission('modules.create')
         $('.add-module').click(function() {
             bootbox.dialog({
                 title: 'Add User',

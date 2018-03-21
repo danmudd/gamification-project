@@ -7,7 +7,7 @@
 
 // Bootstrap
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
-@import '~jasny-bootstrap/scss/jasny-bootstrap';
+@import 'jasny-bootstrap.min';
 
 $col: #428bca;
 $col-dark: darken($col, 6.5%);
@@ -48,6 +48,7 @@ body
 .navmenu
 {
   padding-top: 50px;
+  z-index: 0;
 }
 
 .navmenu-title

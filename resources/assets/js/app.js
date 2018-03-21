@@ -64,10 +64,14 @@ $('document').ready(function() {
 
             // Append files to FormData object.
             $.each(form.find('[type=file]'), function(index, input) {
+                console.log(input.files);
                 if (input.files.length == 1) {
                     data.append(input.name, input.files[0]);
                 } else if (input.files.length > 1) {
-                    data.append(input.name, input.files);
+                    $.each(input.files, function(index2, input2)
+                    {
+                        data.append(input2.name, input2);
+                    })
                 }
             });
         }
@@ -137,7 +141,7 @@ $('document').ready(function() {
 
                 // If successful, reload.
             } else {
-                location.reload();
+                //location.reload();
             }
         });
     };

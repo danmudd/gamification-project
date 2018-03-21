@@ -68,10 +68,41 @@
                                     @permission('modules.users.remove')
                                     <td>
                                         {!! BootForm::open()->action(route('modules.users.remove', array($module->id, $user->id)))->delete()->addClass('confirm-form') !!}
-                                            {!! BootForm::submit('<span class="glyphicon glyphicon-remove"></span>')->addClass('btn-danger btn-sm') !!}
+                                        {!! BootForm::submit('<span class="glyphicon glyphicon-remove"></span>')->addClass('btn-danger btn-sm') !!}
                                         {!! BootForm::close() !!}
                                     </td>
                                     @endpermission
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="pull-left">Works</h4>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th><span class="glyphicon glyphicon-th-list"></span></th>
+                                <th>Name</th>
+                                <th>Module Code</th>
+                                <th>Title</th>
+                                <th>Created</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($module->works as $work)
+                                <tr>
+                                    <td><a href="{{ route('works.show', ['id' => $work->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
+                                    <td><a href="{{ route('users.show', ['id' => $work->user->id]) }}">{{ $work->user->full_name }}</a></td>
+                                    <td><a href="{{ route('modules.show', ['id' => $work->module->id]) }}">{{ $work->module->code }}</a></td>
+                                    <td>{{ $work->title}}</td>
+                                    <td>{{ $work->created_at->format('jS F Y H:i:s') }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

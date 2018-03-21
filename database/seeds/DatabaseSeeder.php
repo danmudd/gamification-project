@@ -71,7 +71,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-
         $pMC = Permission::create(
             [
                 'name' => 'modules.create',
@@ -111,6 +110,55 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'modules.users.remove',
                 'display_name' => 'Remove a user from a module'
+            ]
+        );
+
+        $pWC = Permission::create(
+            [
+                'name' => 'works.create',
+                'display_name' => 'Create works'
+            ]
+        );
+
+        $pWV = Permission::create(
+            [
+                'name' => 'works.view',
+                'display_name' => 'View works'
+            ]
+        );
+
+        $pWU = Permission::create(
+            [
+                'name' => 'works.update',
+                'display_name' => 'Update works'
+            ]
+        );
+
+        $pWD = Permission::create(
+            [
+                'name' => 'works.destroy',
+                'display_name' => 'Destroy works'
+            ]
+        );
+
+        $pWAC = Permission::create(
+            [
+                'name' => 'works.attachments.create',
+                'display_name' => 'Create attachments'
+            ]
+        );
+
+        $pWAV = Permission::create(
+            [
+                'name' => 'works.attachments.view',
+                'display_name' => 'View attachments'
+            ]
+        );
+
+        $pWAD = Permission::create(
+            [
+                'name' => 'works.attachments.destroy',
+                'display_name' => 'Destroy attachments'
             ]
         );
 
@@ -189,10 +237,12 @@ class DatabaseSeeder extends Seeder
         $pU = array($pUU, $pUC, $pUV, $pUD);
         $pR = array($pRU, $pRC, $pRV, $pRD);
         $pM = array($pMU, $pMC, $pMV, $pMD);
+        $pW = array($pWU, $pWC, $pWV, $pWD);
+        $pWA = array($pWAC, $pWAV, $pWAD);
         $pMU = array($pMUA, $pMUR);
 
         // all perms
-        $adminRole->attachPermissions(array_merge($pU, $pR, $pM, $pMU));
+        $adminRole->attachPermissions(array_merge($pU, $pR, $pM, $pW, $pWA, $pMU));
         // user view, application view, edit, delete, role view, all attachments, all comments
         $devRole->attachPermissions(array($pUV, $pRV, $pMV));
         // user view, role view, all applications, attachments, comments

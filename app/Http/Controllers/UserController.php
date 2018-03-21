@@ -22,9 +22,8 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->user->getAll();
-        $roles = $this->role->getRoleArray();
 
-        return view('users.list', compact('users', 'roles'));
+        return view('users.list', compact('users'));
     }
 
     // DEPRECATED.
@@ -46,14 +45,13 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->user->get($id);
-        $roles = $this->role->getRoleArray();
-        $next = $this->user->next('id');
-        $previous = $this->user->previous('id');
-        return view('users.view', compact('user', 'roles'));
+        return view('users.view', compact('user'));
     }
 
     public function update(UpdateUserRequest $request, $user)
     {
+        $this->authorize('update', $user);
+
         $attributes = $request->all();
         $this->user->update($user, $attributes);
 
@@ -77,4 +75,4 @@ class UserController extends Controller
 
         return $results;
     }
- }
+}

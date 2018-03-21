@@ -12,6 +12,16 @@ class ModuleRepository extends BaseRepository implements IModuleRepository
         $this->model = $model;
     }
 
+    public function getModuleArray($with = array())
+    {
+        $stuff = $this->getAll();
+
+        return $stuff->mapWithKeys(function($item)
+        {
+            return [$item->id => $item->name . ': ' . $item->code];
+        });
+    }
+
     public function addUser($module, $thing)
     {
         $module = $this->model->find($module);

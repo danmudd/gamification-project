@@ -42,3 +42,13 @@ Route::put('/modules/{module}', 'ModuleController@update')->name('modules.update
 Route::delete('/modules/{module}', 'ModuleController@destroy')->name('modules.destroy')->middleware('permission:modules.destroy');
 Route::post('/modules/{module}/users', 'ModuleController@addUser')->name('modules.users.add')->middleware('permission:modules.users.add');
 Route::delete('/modules/{module}/users/{user}', 'ModuleController@removeUser')->name('modules.users.remove')->middleware('permission:modules.users.remove');
+
+Route::get('/works', 'WorkController@index')->name('works.index')->middleware('permission:works.view');
+Route::post('/works', 'WorkController@store')->name('works.store')->middleware('permission:works.create');
+Route::get('/works/{work}', 'WorkController@show')->name('works.show')->middleware('permission:works.view');
+Route::put('/works/{work}', 'WorkController@update')->name('works.update')->middleware('permission:works.update');
+Route::delete('/works/{module}', 'WorkController@destroy')->name('works.destroy')->middleware('permission:works.destroy');
+
+Route::get('/works/{work}/attachments/{attachment}', 'AttachmentController@show')->name('works.attachments.show')->middleware('permission:works.attachments.view');
+Route::post('/works/{work}/attachments', 'AttachmentController@store')->name('works.attachments.store')->middleware('permission:works.attachments.create');
+Route::delete('/works/{work}/attachments/{attachment}', 'AttachmentController@destroy')->name('works.attachments.destroy')->middleware('permission:works.attachments.destroy');

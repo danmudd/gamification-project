@@ -12,11 +12,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <h4 class="pull-left">Profile</h4>
-                    @permission('users.update')
+                    @canedit($user->id, 'users.update')
                     <div class="input-group pull-right">
                         <button class="btn btn-primary edit-user">Edit</button>
                     </div>
-                    @endpermission
+                    @endcanedit
                 </div>
                 <table class="table">
                     <tr>
@@ -66,12 +66,11 @@
     </div>
 @stop
 
-
 @push('scripts')
 <script>
     $(function()
     {
-        @permission('users.update')
+        @canedit($user->id, 'users.update')
         $('.edit-user').click(function() {
             bootbox.dialog({
                 title: 'Edit User',
@@ -83,7 +82,7 @@
                 '{!! BootForm::text('Last Name', 'last_name') !!}' +
                 '{!! BootForm::email('Email Address', 'email') !!}' +
                 '{!! BootForm::text('Username', 'username') !!}' +
-				'{!! BootForm::select('Group', 'role', $roles) !!}' +
+				'{!! BootForm::select('Group', 'role', $role_array) !!}' +
                 '{!! BootForm::close() !!}',
                 buttons: {
                     cancel:{
@@ -110,7 +109,7 @@
                 });
             });
         });
-        @endpermission
+        @endcanedit
     });
 </script>
 @endpush

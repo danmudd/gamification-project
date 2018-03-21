@@ -3,17 +3,17 @@
 @section('main-content')
     <div class="row">
         @component('components.pageheader')
-            Users
+            Works
         @endcomponent
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
-                    <h4 class="pull-left">Users</h4>
-                    @permission('users.create')
+                    <h4 class="pull-left">Works</h4>
+                    @permission('works.create')
                     <div class="input-group pull-right">
-                        <button class="btn btn-success add-user">Add</button>
+                        <button class="btn btn-success add-work">Add</button>
                     </div>
                     @endpermission
                 </div>
@@ -22,30 +22,26 @@
                         <thead>
                         <tr>
                             <th><span class="glyphicon glyphicon-th-list"></span></th>
-                            <th>Username</th>
-                            <th>Forename</th>
-                            <th>Surname</th>
-                            <th>Email Address</th>
-                            <th>Group</th>
+                            <th>Name</th>
+                            <th>Module Code</th>
+                            <th>Title</th>
                             <th>Created</th>
-                            @permission('users.destroy')
+                            @permission('works.destroy')
                             <th width="5%">Action</th>
                             @endpermission
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $user)
+                        @foreach($works as $work)
                             <tr>
-                                <td><a href="{{ route('users.show', ['id' => $user->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
-                                <td>{{ $user->username }}</td>
-                                <td>{{ $user->first_name }}</td>
-                                <td>{{ $user->last_name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->roles->first() ? $user->roles->first()->display_name : 'None!' }}</td>
-                                <td>{{ $user->created_at->format('jS F Y H:i:s') }}</td>
+                                <td><a href="{{ route('works.show', ['id' => $work->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
+                                <td><a href="{{ route('users.show', ['id' => $work->user->id]) }}">{{ $work->user->full_name }}</a></td>
+                                <td><a href="{{ route('modules.show', ['id' => $work->module->id]) }}">{{ $work->module->code }}</a></td>
+                                <td>{{ $work->title}}</td>
+                                <td>{{ $work->created_at->format('jS F Y H:i:s') }}</td>
                                 @permission('users.destroy')
                                 <td>
-                                    {!!  BootForm::open()->action(route('users.destroy', $user->id))->delete()->addClass('confirm-form') !!}
+                                    {!!  BootForm::open()->action(route('works.destroy', $work->id))->delete()->addClass('confirm-form') !!}
                                         {!! BootForm::submit('<span class="glyphicon glyphicon-remove"></span>')->addClass('btn-danger btn-sm btn-block') !!}
                                     {!! BootForm::close() !!}
                                 </td>
@@ -64,19 +60,16 @@
 <script>
     $(function()
     {
-        @permission('users.create')
-        $('.add-user').click(function() {
+        @permission('works.create')
+        $('.add-work').click(function() {
             bootbox.dialog({
-                title: 'Add User',
+                title: 'Add Work',
                 message:
-                '{!! BootForm::open()->action(route('users.store'))->addClass('bootstrap-modal-form')->id('add_user') !!}' +
-                '{!! BootForm::text('Username', 'username') !!}' +
-                '{!! BootForm::email('Email Address', 'email') !!}' +
-                '{!! BootForm::password('Password', 'password') !!}' +
-                '{!! BootForm::password('Confirm Password', 'password_confirmation') !!}' +
-                '{!! BootForm::text('First Name', 'first_name') !!}' +
-                '{!! BootForm::text('Last Name', 'last_name') !!}' +
-                '{!! BootForm::select('Group', 'role', $role_array) !!}' +
+                '{!! BootForm::open()->action(route('works.store'))->addClass('bootstrap-modal-form')->id('add_work') !!}' +
+                '{!! BootForm::hidden('user_id')->value(Auth::user()->id)!!}' +
+                '{!! BootForm::select('Module', 'module_id', Auth::user()->getModuleArray()) !!}' +
+                '{!! BootForm::text('Title', 'title') !!}' +
+                '{!! BootForm::textarea('Description', 'description')->rows(3) !!}' +
                 '{!! BootForm::close() !!}',
                 buttons: {
                     cancel:{
@@ -88,7 +81,7 @@
                         className: "btn-success btn-submit",
                         callback: function() {
                             //post the data
-                            $('#add_user').submit();
+                            $('#add_work').submit();
                             return false;
                         }
                     }
@@ -96,7 +89,7 @@
                 backdrop: true,
                 onEscape: true
             }).init(function() {
-                $('#add_user').on('submit', function(submission)
+                $('#add_work').on('submit', function(submission)
                 {
                     $this = $(this);
                     $.submitModalForm(submission);

@@ -12,7 +12,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
-    require('jasny-bootstrap/dist/js/jasny-bootstrap');
+    require('./jasny-bootstrap.min');
     global.bootbox = require('bootbox');
 } catch (e) {}
 

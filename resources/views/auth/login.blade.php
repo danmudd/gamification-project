@@ -3,6 +3,7 @@
 @push('title') :: Login @endpush
 
 @section('content')
+    {{ $errors }}
     {!!  BootForm::open()->action(route('login'))->addClass('form-signin') !!}
         <h2>Hello! <br /><small>Welcome to the Team Dog Peer Review Platform. </small></h2>
         {!! BootForm::text('Username or email address', 'username')->placeholder('Username or email address')->hideLabel() !!}

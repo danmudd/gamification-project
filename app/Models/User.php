@@ -50,4 +50,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Module');
     }
+
+    public function getModuleArray()
+    {
+        return $this->getRelationValue('modules')->mapWithKeys(function($item)
+        {
+            return [$item->id => $item->name . ': ' . $item->code];
+        });
+    }
 }

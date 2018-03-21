@@ -24,6 +24,9 @@
     </script>
 </head>
 <body>
+@if ($errors->any())
+    {{ implode('', $errors->all('<div>:message</div>')) }}
+@endif
     <nav class="navbar navbar-default navbar-fixed-top">
 
             <a class="navbar-brand hidden-xs" href="{{ url('/') }}"><img alt="{{ config('app.name', 'Laravel') }}" src="{{ asset('img/its_a_dog.png') }}" style="max-width: 100%; max-height: 100%" /></a>
