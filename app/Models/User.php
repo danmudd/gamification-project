@@ -56,9 +56,9 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Module');
     }
 
-    public function visibleWorks()
+    public function works()
     {
-        return $this->hasManyThrough('App\Models\Work', 'App\Models\Module');
+        return $this->hasMany('App\Models\Work');
     }
 
     public function getModuleArray()

@@ -9,37 +9,39 @@
 
     <div class="row">
         <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <h4 class="pull-left">Profile</h4>
-                    @canedit($user->id, 'users.update')
-                    <div class="input-group pull-right">
-                        <button class="btn btn-primary edit-user">Edit</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="pull-left">Profile</h4>
+                            @canedit($user->id, 'users.update')
+                            <div class="input-group pull-right">
+                                <button class="btn btn-primary edit-user">Edit</button>
+                            </div>
+                            @endcanedit
+                        </div>
+                        <table class="table">
+                            <tr>
+                                <td><span class="glyphicon glyphicon-user"></span></td><td>{{ $user->full_name }}</td>
+                            </tr>
+                            <tr>
+                                <td><span class="glyphicon glyphicon-tag"></span></td><td>
+                                    @if($user->roles->first())
+                                        <a href="{{ route('roles.show', ['id' => $user->roles->first()->id]) }}">{{ $user->roles->first()->display_name }}</a>
+                                    @else
+                                        None!
+                                    @endif</td>
+                            </tr>
+                            <tr>
+                                <td><span class="glyphicon glyphicon-envelope"></span></td><td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                            </tr>
+                            <tr>
+                                <td><span class="glyphicon glyphicon-calendar"></span></td><td>{{ $user->created_at->format('jS F Y H:i:s') }}</td>
+                            </tr>
+                        </table>
                     </div>
-                    @endcanedit
                 </div>
-                <table class="table">
-                    <tr>
-                        <td><span class="glyphicon glyphicon-user"></span></td><td>{{ $user->full_name }}</td>
-                    </tr>
-                    <tr>
-                        <td><span class="glyphicon glyphicon-tag"></span></td><td>
-                            @if($user->roles->first())
-                                <a href="{{ route('roles.show', ['id' => $user->roles->first()->id]) }}">{{ $user->roles->first()->display_name }}</a>
-                            @else
-                                None!
-                            @endif</td>
-                    </tr>
-                    <tr>
-                        <td><span class="glyphicon glyphicon-envelope"></span></td><td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                    </tr>
-                    <tr>
-                        <td><span class="glyphicon glyphicon-calendar"></span></td><td>{{ $user->created_at->format('jS F Y H:i:s') }}</td>
-                    </tr>
-                </table>
             </div>
-        </div>
-        <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
@@ -60,6 +62,37 @@
                                     <td><a href="{{ route('modules.show', ['id' => $module->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
                                     <td>{{ $module->code }}</td>
                                     <td>{{ $module->name }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="pull-left">Works</h4>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th><span class="glyphicon glyphicon-th-list"></span></th>
+                                <th>Code</th>
+                                <th>Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($user->works as $work)
+                                <tr>
+                                    <td><a href="{{ route('works.show', ['id' => $work->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
+                                    <td><a href="{{ route('modules.show', ['id' => $work->module->id]) }}">{{ $work->module->code }}</a></td>
+                                    <td>{{ $work->title}}</td>
+                                    <td>{{ count($work->feedbacks) }}</td>
+                                    <td>{{ $work->created_at->format('jS F Y H:i:s') }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

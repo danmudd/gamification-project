@@ -366,6 +366,7 @@ class DatabaseSeeder extends Seeder
         $admin->attachRole($adminRole);
         $tester->attachRole($testRole);
         $student->attachRole($studentRole);
+        $student2->attachRole($studentRole);
         $faculty->attachRole($facultyRole);
         $moduleLeader->attachRole($moduleLeaderRole);
 
