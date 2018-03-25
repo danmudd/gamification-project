@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Works\IAttachmentRepository;
 use Illuminate\Http\Request;
-use App\Repositories\Attachments\IAttachmentRepository;
 use App\Http\Requests\Attachments\CreateAttachmentRequest;
 use Illuminate\Support\Facades\Storage;
 
