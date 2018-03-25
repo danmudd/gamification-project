@@ -26,9 +26,9 @@ class AttachmentController extends Controller
         return redirect()->route('works.show', ['id' => $attributes['work_id']]);
     }
 
-    public function show($id)
+    public function show($work, $id)
     {
-        $attachment = $this->attachments->get($id);
+        $attachment = $this->attachments->make()->where('work_id', $work)->findOrFail($id);
 
         $file = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix($attachment->path);
         $ext = pathinfo($file, PATHINFO_EXTENSION);

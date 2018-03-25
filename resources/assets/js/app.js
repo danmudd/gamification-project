@@ -47,7 +47,7 @@ $('document').ready(function() {
         // Set vars.
         var form   = $this,
             url    = form.attr('action'),
-            submit = form.closest('[type=submit]');
+            submit = form.closest('.modal-content').find('[data-bb-handler=submit]');
 
         // Check for file inputs.
         if (form.find('[type=file]').length) {
@@ -85,10 +85,10 @@ $('document').ready(function() {
         // Please wait.
         if (submit.is('button')) {
             var submitOriginal = submit.html();
-            submit.html('Please wait...');
+            submit.html('Please wait...').attr("disabled", "disabled");
         } else if (submit.is('input')) {
             var submitOriginal = submit.val();
-            submit.val('Please wait...');
+            submit.val('Please wait...').attr("disabled", "disabled");
         }
 
         var type = "POST";
@@ -134,9 +134,9 @@ $('document').ready(function() {
 
                 // Reset submit.
                 if (submit.is('button')) {
-                    submit.html(submitOriginal);
+                    submit.html(submitOriginal).removeAttr("disabled");
                 } else if (submit.is('input')) {
-                    submit.val(submitOriginal);
+                    submit.val(submitOriginal).removeAttr("disabled");
                 }
 
                 // If successful, reload.
