@@ -141,7 +141,7 @@ $('document').ready(function() {
 
                 // If successful, reload.
             } else {
-                //location.reload();
+                location.reload();
             }
         });
     };

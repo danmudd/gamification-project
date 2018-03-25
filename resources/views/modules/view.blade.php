@@ -169,7 +169,7 @@
                 message:
                 '{!!  BootForm::open()->action(route('modules.users.add', $module->id))->addClass('bootstrap-modal-form')->id('add_module_users') !!}' +
                 '{!!  BootForm::bind($module) !!}' +
-                '<table class="table"><thead><tr><th><span class="glyphicon glyphicon-th-list"></span></th><th>Username</th><th>Name</th></tr></thead><tbody>' +
+                '<table class="table" id="users-table"><thead><tr><th><span class="glyphicon glyphicon-th-list"></span></th><th>Username</th><th>Name</th></tr></thead><tbody>' +
                     @foreach($userlist as $user)
                         '<tr><td><input type="checkbox" name="users[{{ $user->id }}]"></input></td><td>{{ $user->username }}</td><td>{{ $user->full_name }}</td></tr>' +
                     @endforeach
@@ -187,10 +187,6 @@
                             //post the data
                             var array = [];
                             var select = $('#add_module_users');
-                            select.find('table').find('input[type="checkbox"]:checked').each(function()
-                            {
-                               // $('<input />').attr('type', 'hidden').attr('name', 'users[]').attr('value', $(this).val()).appendTo(select);
-                            });
 
                             select.submit();
                             return false;
@@ -208,6 +204,14 @@
             });
         });
         @endpermission
+    });
+
+    $(document).on('click', '#users-table tr', function() {
+        ele = $(this).find('td input:checkbox')[0];
+        ele.checked = ! ele.checked;
+    });
+    $(document).on('click', '#users-table input:checkbox', function(e){
+        e.stopPropagation();
     });
 </script>
 @endpush

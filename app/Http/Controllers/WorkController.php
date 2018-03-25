@@ -46,10 +46,12 @@ class WorkController extends Controller
     public function store(CreateWorkRequest $request)
     {
         $attributes = $request->all();
+        $user = \Auth::user();
 
         $module = $this->modules->get($attributes['module_id']);
-        if(\Auth::user()->may('show', $module))
+        if($user->may('show', $module))
         {
+
             $this->works->create($attributes);
         }
 

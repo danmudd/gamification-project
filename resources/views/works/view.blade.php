@@ -38,13 +38,13 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="panel-body">
                 @if(Auth::id() != $work->user_id)
+                <div class="panel-body">
                     <div class="input-group" style="margin: 0 auto">
                         <button class="btn btn-success add-feedback">Leave Feedback</button>
                     </div>
-                @endif
                 </div>
+                @endif
             </div>
         </div>
         <div class="col-md-9">
@@ -103,6 +103,7 @@
                                 <th>Negative Comments</th>
                                 <th>Misc. Comments</th>
                                 <th>Created</th>
+                                <th width="5%">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -114,6 +115,13 @@
                                     <td>{{ $feedback->negative_feedback }}</td>
                                     <td>{{ $feedback->misc_feedback }}</td>
                                     <td>{{ $feedback->created_at->format('jS F Y H:i:s') }}</td>
+                                    @canedit($feedback->user->id, 'works.attachments.destroy-all')
+                                    <td>
+                                        {!! BootForm::open()->action(route('works.feedbacks.destroy', array($work->id, $feedback->id)))->delete()->addClass('confirm-form') !!}
+                                            {!! BootForm::submit('<span class="glyphicon glyphicon-remove"></span>')->addClass('btn-danger btn-sm') !!}
+                                        {!! BootForm::close() !!}
+                                    </td>
+                                    @endcanedit
                                 </tr>
                             @endforeach
                             </tbody>

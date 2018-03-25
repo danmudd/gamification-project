@@ -43,11 +43,11 @@
                                 <td>{{ $work->created_at->format('jS F Y H:i:s') }}</td>
                                 @permission('works.destroy')
                                 <td>
-                                    @if($work->user_id == Auth::id())
+                                    @canedit($work->user_id, 'works.destroy-all')
                                         {!!  BootForm::open()->action(route('works.destroy', $work->id))->delete()->addClass('confirm-form') !!}
                                             {!! BootForm::submit('<span class="glyphicon glyphicon-remove"></span>')->addClass('btn-danger btn-sm btn-block') !!}
                                         {!! BootForm::close() !!}
-                                    @endif
+                                    @endcanedit
                                 </td>
                                 @endpermission
                             </tr>
