@@ -50,8 +50,6 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, $user)
     {
-        $this->authorize('update', $user);
-
         $attributes = $request->all();
         $this->user->update($user, $attributes);
 
