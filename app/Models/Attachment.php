@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Attachment extends Model
 {
     protected $fillable = [
-        'work_id', 'name'
+        'name'
     ];
 
     public function work()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Attachments;
+namespace App\Repositories\Works;
 
 use App\Models\Attachment;
 use App\Repositories\BaseRepository;

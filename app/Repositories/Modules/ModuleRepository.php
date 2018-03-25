@@ -26,13 +26,13 @@ class ModuleRepository extends BaseRepository implements IModuleRepository
     {
         $module = $this->model->find($module);
 
-        $module->members()->attach(array_keys($thing["users"]));
+        $module->users()->attach(array_keys($thing["users"]));
     }
 
     public function removeUser($module, $thing)
     {
         $module = $this->model->find($module);
 
-        $module->members()->detach($thing);
+        $module->users()->detach($thing);
     }
 }

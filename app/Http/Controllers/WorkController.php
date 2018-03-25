@@ -6,6 +6,7 @@ use App\Http\Requests\Roles\UpdateRoleRequest;
 use App\Http\Requests\Roles\AddRolePermissionRequest;
 use App\Http\Requests\Roles\RemoveRolePermissionRequest;
 use App\Http\Requests\Works\CreateWorkRequest;
+use App\Models\User;
 use App\Repositories\Modules\IModuleRepository;
 use App\Repositories\Permissions\IPermissionRepository;
 use App\Repositories\Roles\IRoleRepository;
@@ -25,7 +26,20 @@ class WorkController extends Controller
 
     public function index()
     {
-        $works = $this->works->getAll();
+
+        $works = [];
+        $user = \Auth::user();
+        if($user->can('works.view-all'))
+        {
+            $works = $this->works->getAll();
+        }
+        else
+        {
+            $user->load(['modules.works' => function ($q) use ( &$works ) {
+                $works = $q->get()->unique();
+            }]);
+        }
+
         return view('works.list', compact('works'));
     }
 
@@ -33,20 +47,27 @@ class WorkController extends Controller
     {
         $attributes = $request->all();
 
-        $this->works->create($attributes);
+        $module = $this->modules->get($attributes['module_id']);
+        if(\Auth::user()->may('show', $module))
+        {
+            $this->works->create($attributes);
+        }
 
         return redirect()->route('works.index');
     }
 
     public function show($id)
     {
-        $work = $this->works->get($id);
+        $work = $this->works->get($id, ['module', 'attachments', 'feedbacks']);
+        $this->authorize('show', $work);
 
         return view('works.view', compact('work'));
     }
 
-    public function update(UpdateWorkRequest $request, $work)
+    public function update(UpdateWorkRequest $request, $id)
     {
+        $work = $this->works->get($id);
+
         $this->authorize('update', $work);
 
         $attributes = $request->all();
@@ -62,6 +83,9 @@ class WorkController extends Controller
 
     public function destroy($id)
     {
+        $work = $this->works->get($id);
+
+        $this->authorize('destroy', $work);
         $this->works->delete($id);
 
         return redirect()->route('works.index');

@@ -41,7 +41,12 @@
                                 <td>{{ $user->first_name }}</td>
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->roles->first() ? $user->roles->first()->display_name : 'None!' }}</td>
+                                <td>@if($user->roles->first())
+                                        <a href="{{ route('roles.show', ['id' => $user->roles->first()->id]) }}">{{ $user->roles->first()->display_name }}</a>
+                                    @else
+                                        None!
+                                    @endif
+                                </td>
                                 <td>{{ $user->created_at->format('jS F Y H:i:s') }}</td>
                                 @permission('users.destroy')
                                 <td>

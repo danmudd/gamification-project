@@ -12,7 +12,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <h4 class="pull-left">Details</h4>
-                    @canedit($work->user->id, 'works.update')
+                    @canedit($work->user->id, 'works.update-all')
                     <div class="input-group pull-right">
                         <button class="btn btn-primary edit-work">Edit</button>
                     </div>
@@ -38,6 +38,13 @@
                     </tr>
                     </tbody>
                 </table>
+                <div class="panel-body">
+                @if(Auth::id() != $work->user_id)
+                    <div class="input-group" style="margin: 0 auto">
+                        <button class="btn btn-success add-feedback">Leave Feedback</button>
+                    </div>
+                @endif
+                </div>
             </div>
         </div>
         <div class="col-md-9">
@@ -46,7 +53,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="pull-left">Attachments</h4>
-                            @canedit($work->user->id, 'works.attachments.create')
+                            @canedit($work->user->id, 'works.attachments.create-all')
                             <div class="input-group pull-right">
                                 <button class="btn btn-success add-work-attachment">Add</button>
                             </div>
@@ -57,7 +64,7 @@
                             <tr>
                                 <th><span class="glyphicon glyphicon-th-list"></span></th>
                                 <th>File</th>
-                                @canedit($work->user->id, 'works.attachments.destroy')
+                                @canedit($work->user->id, 'works.attachments.destroy-all')
                                 <th width="5%">Action</th>
                                 @endcanedit
                             </tr>
@@ -67,13 +74,46 @@
                                 <tr>
                                     <td>{{ $attachment->id }}</td>
                                     <td><a href="{{ route('works.attachments.show', [$work->id, $attachment->id]) }}">{{ $attachment->name . '.' .  pathinfo($attachment->path, PATHINFO_EXTENSION) }}</a></td>
-                                    @canedit($work->user->id, 'works.attachments.destroy')
+                                    @canedit($work->user->id, 'works.attachments.destroy-all')
                                     <td>
                                         {!! BootForm::open()->action(route('works.attachments.destroy', array($work->id, $attachment->id)))->delete()->addClass('confirm-form') !!}
                                             {!! BootForm::submit('<span class="glyphicon glyphicon-remove"></span>')->addClass('btn-danger btn-sm') !!}
                                         {!! BootForm::close() !!}
                                     </td>
                                     @endcanedit
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="pull-left">Comments</h4>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th><span class="glyphicon glyphicon-th-list"></span></th>
+                                <th>User</th>
+                                <th>Positive Comments</th>
+                                <th>Negative Comments</th>
+                                <th>Misc. Comments</th>
+                                <th>Created</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($work->feedbacks as $feedback)
+                                <tr>
+                                    <td>{{ $feedback->id }}</td>
+                                    <td><a href="{{ route('users.show', ['id' => $feedback->user->id]) }}">{{ $feedback->user->full_name }}</a></td>
+                                    <td>{{ $feedback->positive_feedback }}</td>
+                                    <td>{{ $feedback->negative_feedback }}</td>
+                                    <td>{{ $feedback->misc_feedback }}</td>
+                                    <td>{{ $feedback->created_at->format('jS F Y H:i:s') }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -90,7 +130,7 @@
 <script>
     $(function()
     {
-        @canedit($work->user->id, 'works.update')
+        @canedit($work->user->id, 'works.update-all')
         $('.edit-work').click(function() {
             bootbox.dialog({
                 title: 'Edit work',
@@ -129,7 +169,7 @@
         });
         @endcanedit
 
-        @canedit($work->user->id, 'works.attachments.create')
+        @canedit($work->user->id, 'works.attachments.create-all')
         $('.add-work-attachment').click(function() {
             bootbox.dialog({
                 title: 'Add Attachment',
@@ -168,7 +208,45 @@
                 });
             });
         });
-        @endpermission
+        @endcanedit
+
+        @if(Auth::id() != $work->user_id)
+        $('.add-feedback').click(function() {
+            bootbox.dialog({
+                title: 'Leave Feedback',
+                message:
+                '{!! BootForm::open()->action(route('works.feedbacks.store', $work->id))->addClass('bootstrap-modal-form')->id('add_feedback') !!}' +
+                '{!! BootForm::hidden('work_id')->value($work->id) !!}' +
+                '{!! BootForm::textarea('What was good?', 'positive_feedback')->rows(3) !!}' +
+                '{!! BootForm::textarea('What could be improved?', 'negative_feedback')->rows(3) !!}' +
+                '{!! BootForm::textarea('Any other comments?', 'misc_feedback')->rows(3) !!}' +
+                '{!! BootForm::close() !!}',
+                buttons: {
+                    cancel:{
+                        label: "Cancel",
+                        className: "btn-default",
+                    },
+                    submit:{
+                        label: "Submit",
+                        className: "btn-primary btn-submit",
+                        callback: function() {
+                            //post the data
+                            $('#add_feedback').submit();
+                            return false;
+                        }
+                    }
+                },
+                backdrop: true,
+                onEscape: true
+            }).init(function() {
+                $('#add_feedback').on('submit', function(submission)
+                {
+                    $this = $(this);
+                    $.submitModalForm(submission);
+                });
+            });
+        });
+        @endif
     });
 </script>
 @endpush

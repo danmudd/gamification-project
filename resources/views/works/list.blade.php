@@ -25,6 +25,7 @@
                             <th>Name</th>
                             <th>Module Code</th>
                             <th>Title</th>
+                            <th>Comments</th>
                             <th>Created</th>
                             @permission('works.destroy')
                             <th width="5%">Action</th>
@@ -38,12 +39,15 @@
                                 <td><a href="{{ route('users.show', ['id' => $work->user->id]) }}">{{ $work->user->full_name }}</a></td>
                                 <td><a href="{{ route('modules.show', ['id' => $work->module->id]) }}">{{ $work->module->code }}</a></td>
                                 <td>{{ $work->title}}</td>
+                                <td>{{ count($work->feedbacks) }}</td>
                                 <td>{{ $work->created_at->format('jS F Y H:i:s') }}</td>
-                                @permission('users.destroy')
+                                @permission('works.destroy')
                                 <td>
-                                    {!!  BootForm::open()->action(route('works.destroy', $work->id))->delete()->addClass('confirm-form') !!}
-                                        {!! BootForm::submit('<span class="glyphicon glyphicon-remove"></span>')->addClass('btn-danger btn-sm btn-block') !!}
-                                    {!! BootForm::close() !!}
+                                    @if($work->user_id == Auth::id())
+                                        {!!  BootForm::open()->action(route('works.destroy', $work->id))->delete()->addClass('confirm-form') !!}
+                                            {!! BootForm::submit('<span class="glyphicon glyphicon-remove"></span>')->addClass('btn-danger btn-sm btn-block') !!}
+                                        {!! BootForm::close() !!}
+                                    @endif
                                 </td>
                                 @endpermission
                             </tr>
@@ -66,7 +70,6 @@
                 title: 'Add Work',
                 message:
                 '{!! BootForm::open()->action(route('works.store'))->addClass('bootstrap-modal-form')->id('add_work') !!}' +
-                '{!! BootForm::hidden('user_id')->value(Auth::user()->id)!!}' +
                 '{!! BootForm::select('Module', 'module_id', Auth::user()->getModuleArray()) !!}' +
                 '{!! BootForm::text('Title', 'title') !!}' +
                 '{!! BootForm::textarea('Description', 'description')->rows(3) !!}' +

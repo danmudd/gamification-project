@@ -16,7 +16,7 @@ class Module extends Model
         return $this->hasMany('App\Models\Work');
     }
 
-    public function members()
+    public function users()
     {
         return $this->belongsToMany('App\Models\User');
     }

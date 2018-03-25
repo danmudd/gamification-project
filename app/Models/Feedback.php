@@ -3,11 +3,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Feedback extends Model
 {
+    protected $table = 'feedbacks';
+
     protected $fillable = [
-        'comment',
-        'application_id'
+        'work_id',
+        'positive_feedback',
+        'negative_feedback',
+        'misc_feedback',
     ];
 
     public function work()

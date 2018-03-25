@@ -11,4 +11,14 @@ class WorkRepository extends BaseRepository implements IWorkRepository
     {
         $this->model = $model;
     }
+
+    public function create($data)
+    {
+        $work = new Work();
+        $work->fill($data);
+        $work->user_id = \Auth::id();
+        $work->save();
+
+        return $work;
+    }
 }

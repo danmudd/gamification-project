@@ -8,36 +8,72 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <h4 class="pull-left">Role Info</h4>
-                    @permission('roles.update')
-                    <div class="input-group pull-right">
-                        <button class="btn btn-primary edit-role">Edit</button>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="pull-left">Role Info</h4>
+                            @permission('roles.update')
+                            <div class="input-group pull-right">
+                                <button class="btn btn-primary edit-role">Edit</button>
+                            </div>
+                            @endpermission
+                        </div>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td width="50%">{{ $role->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Display Name</td>
+                                <td>{{ $role->display_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>{{ $role->description  }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    @endpermission
                 </div>
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td>Name:</td>
-                        <td width="50%">{{ $role->name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Display Name:</td>
-                        <td>{{ $role->display_name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td>{{ $role->description  }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="pull-left">Users</h4>
+                            @permission('modules.users.add')
+                            <div class="input-group pull-right">
+                                <button class="btn btn-success add-module-user">Add</button>
+                            </div>
+                            @endpermission
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th><span class="glyphicon glyphicon-th-list"></span></th>
+                                <th>Username</th>
+                                <th>Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($role->users as $user)
+                                <tr>
+                                    <td><a href="{{ route('users.show', ['id' => $user->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
+                                    <td>{{ $user->username }}</td>
+                                    <td>{{ $user->full_name }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <h4 class="pull-left">Permissions</h4>

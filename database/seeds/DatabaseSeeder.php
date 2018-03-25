@@ -4,6 +4,7 @@ use App\Models\Module;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Work;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -85,6 +86,13 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        $pMVA = Permission::create(
+            [
+                'name' => 'modules.view-all',
+                'display_name' => 'View all modules'
+            ]
+        );
+
         $pMU = Permission::create(
             [
                 'name' => 'modules.update',
@@ -127,10 +135,24 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        $pWVA = Permission::create(
+            [
+                'name' => 'works.view-all',
+                'display_name' => 'View all works'
+            ]
+        );
+
         $pWU = Permission::create(
             [
                 'name' => 'works.update',
                 'display_name' => 'Update works'
+            ]
+        );
+
+        $pWUA = Permission::create(
+            [
+                'name' => 'works.update-all',
+                'display_name' => 'Update all works'
             ]
         );
 
@@ -141,9 +163,23 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        $pWDA = Permission::create(
+            [
+                'name' => 'works.destroy-all',
+                'display_name' => 'Destroy all works'
+            ]
+        );
+
         $pWAC = Permission::create(
             [
                 'name' => 'works.attachments.create',
+                'display_name' => 'Create attachments'
+            ]
+        );
+
+        $pWACA = Permission::create(
+            [
+                'name' => 'works.attachments.create-all',
                 'display_name' => 'Create attachments'
             ]
         );
@@ -162,17 +198,66 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $user = User::create(
+        $pWADA = Permission::create(
+            [
+                'name' => 'works.attachments.destroy-all',
+                'display_name' => 'Destroy all attachments'
+            ]
+        );
+
+        $pWFC = Permission::create(
+            [
+                'name' => 'works.feedbacks.create',
+                'display_name' => 'Create feedbacks'
+            ]
+        );
+
+        $pWFCA = Permission::create(
+            [
+                'name' => 'works.feedbacks.create-all',
+                'display_name' => 'Create all feedbacks'
+            ]
+        );
+
+        $pWFD = Permission::create(
+            [
+                'name' => 'works.feedbacks.destroy',
+                'display_name' => 'Destroy feedbacks'
+            ]
+        );
+
+        $pWFDA = Permission::create(
+            [
+                'name' => 'works.feedbacks.destroy-all',
+                'display_name' => 'Destroy all feedbacks'
+            ]
+        );
+
+        $pWFV = Permission::create(
+            [
+                'name' => 'works.feedbacks.view',
+                'display_name' => 'View feedbacks'
+            ]
+        );
+
+        $pWFVA = Permission::create(
+            [
+                'name' => 'works.feedbacks.view-all',
+                'display_name' => 'View all feedbacks'
+            ]
+        );
+
+        $admin = User::create(
             [
                 'username' => 'admin',
                 'email' => 'admin@teamdog.io',
                 'password' => bcrypt('adminp4ss'),
-                'first_name' => 'The',
-                'last_name'=> 'Admin'
+                'first_name' => 'Admin',
+                'last_name'=> 'Account'
             ]
         );
 
-        $user2 = User::create(
+        $tester = User::create(
             [
                 'username' => 'tester',
                 'email' => 'tester@teamdog.io',
@@ -182,23 +267,43 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $user3 = User::create(
+        $student = User::create(
             [
-                'username' => 'bitjump',
-                'email' => 'me@bitjump.net',
-                'password' => bcrypt('tester'),
+                'username' => 'bg85td',
+                'email' => 'bg85td@student.sunderland.ac.uk',
+                'password' => bcrypt('student'),
                 'first_name' => 'Daniel',
                 'last_name'=> 'Mudd'
             ]
         );
 
-        $manager = User::create(
+        $student2 = User::create(
             [
-                'username' => 'manager',
-                'email' => 'manager@teamdog.io',
-                'password' => bcrypt('m4nager'),
-                'first_name' => 'Managing',
-                'last_name'=> 'Account'
+                'username' => 'bg88wc',
+                'email' => 'bg88wc@student.sunderland.ac.uk',
+                'password' => bcrypt('student'),
+                'first_name' => 'Charlotte',
+                'last_name'=> 'Anderson'
+            ]
+        );
+
+        $faculty = User::create(
+            [
+                'username' => 'andrew.smith',
+                'email' => 'andrew.smith@sunderland.ac.uk',
+                'password' => bcrypt('module'),
+                'first_name' => 'Andrew',
+                'last_name'=> 'Smith'
+            ]
+        );
+
+        $moduleLeader = User::create(
+            [
+                'username' => 'siobhan.devlin',
+                'email' => 'siobhan.devlin@sunderland.ac.uk',
+                'password' => bcrypt('faculty'),
+                'first_name' => 'Siobhan',
+                'last_name'=> 'Devlin'
             ]
         );
 
@@ -210,19 +315,27 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $devRole = Role::create(
+        $studentRole = Role::create(
             [
-                'name' => 'developer',
-                'display_name' => 'Developer',
-                'description' => 'The developer group.'
+                'name' => 'student',
+                'display_name' => 'Student',
+                'description' => 'The student group.'
             ]
         );
 
-        $managerRole = Role::create(
+        $facultyRole = Role::create(
             [
-                'name' => 'manager',
-                'display_name' => 'Manager',
-                'description' => 'The manager group.'
+                'name' => 'faculty',
+                'display_name' => 'Faculty',
+                'description' => 'The faculty group.'
+            ]
+        );
+
+        $moduleLeaderRole = Role::create(
+            [
+                'name' => 'module-leader',
+                'display_name' => 'Module Leader',
+                'description' => 'The module leader group.'
             ]
         );
 
@@ -236,25 +349,25 @@ class DatabaseSeeder extends Seeder
 
         $pU = array($pUU, $pUC, $pUV, $pUD);
         $pR = array($pRU, $pRC, $pRV, $pRD);
-        $pM = array($pMU, $pMC, $pMV, $pMD);
-        $pW = array($pWU, $pWC, $pWV, $pWD);
-        $pWA = array($pWAC, $pWAV, $pWAD);
+        $pM = array($pMU, $pMC, $pMV, $pMVA, $pMD);
+        $pW = array($pWU, $pWUA, $pWC, $pWV, $pWVA, $pWD, $pWDA);
+        $pWA = array($pWAC, $pWACA, $pWAV, $pWAD, $pWADA);
+        $pWF = array($pWFC, $pWFCA, $pWFD, $pWFDA, $pWFV, $pWFVA);
         $pMU = array($pMUA, $pMUR);
 
         // all perms
-        $adminRole->attachPermissions(array_merge($pU, $pR, $pM, $pW, $pWA, $pMU));
-        // user view, application view, edit, delete, role view, all attachments, all comments
-        $devRole->attachPermissions(array($pUV, $pRV, $pMV));
-        // user view, role view, all applications, attachments, comments
-        $managerRole->attachPermissions(array($pUV, $pRV, $pMV));
-        // all views
-        $testRole->attachPermissions(array($pRV, $pUV, $pMV));
+        $adminRole->attachPermissions(array_merge($pU, $pR, $pM, $pW, $pWA, $pWF, $pMU));
+        $facultyRole->attachPermissions(array_merge(array($pUV, $pMV, $pMVA, $pRV, $pWV, $pWVA, $pWAV), $pWF, $pMU));
+        $moduleLeaderRole->attachPermissions(array_merge(array($pUV, $pRV), $pM, $pW, $pWA, $pWF, $pMU));
+        $studentRole->attachPermissions(array($pUV, $pRV, $pMV, $pWV, $pWC, $pWD, $pWU, $pWAC, $pWAV, $pWAD, $pWFC, $pWFD, $pWFV));
+        $testRole->attachPermissions(array($pRV, $pUV, $pMV, $pWV));
 
 
-        $user->attachRole($adminRole);
-        $user2->attachRole($testRole);
-        $user3->attachRole($devRole);
-        $manager->attachRole($managerRole);
+        $admin->attachRole($adminRole);
+        $tester->attachRole($testRole);
+        $student->attachRole($studentRole);
+        $faculty->attachRole($facultyRole);
+        $moduleLeader->attachRole($moduleLeaderRole);
 
         $mod1 = Module::create(
             [
@@ -269,6 +382,19 @@ class DatabaseSeeder extends Seeder
                 'code' => 'CET205',
                 'name' => 'Advanced Web Development',
                 'description' => 'More complex materials!'
+            ]
+        );
+
+        $mod1->users()->attach($student);
+        $mod1->users()->attach($student2);
+        $mod2->users()->attach($student);
+
+        $work = Work::create(
+            [
+                'user_id' => 1,
+                'module_id' => 1,
+                'title' => "Test",
+                'description' => 'Test description'
             ]
         );
 

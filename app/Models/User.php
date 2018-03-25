@@ -3,13 +3,18 @@
 namespace App\Models;
 
 use EloquentFilter\Filterable;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Config;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable, EntrustUserTrait, Filterable;
+    use Notifiable, EntrustUserTrait, Filterable, Authorizable {
+        Authorizable::can as may;
+        EntrustUserTrait::can insteadof Authorizable;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -49,6 +54,11 @@ class User extends Authenticatable
     public function modules()
     {
         return $this->belongsToMany('App\Models\Module');
+    }
+
+    public function visibleWorks()
+    {
+        return $this->hasManyThrough('App\Models\Work', 'App\Models\Module');
     }
 
     public function getModuleArray()

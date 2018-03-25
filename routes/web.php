@@ -49,6 +49,8 @@ Route::get('/works/{work}', 'WorkController@show')->name('works.show')->middlewa
 Route::put('/works/{work}', 'WorkController@update')->name('works.update')->middleware('permission:works.update');
 Route::delete('/works/{module}', 'WorkController@destroy')->name('works.destroy')->middleware('permission:works.destroy');
 
-Route::get('/works/{work}/attachments/{attachment}', 'AttachmentController@show')->name('works.attachments.show')->middleware('permission:works.attachments.view');
-Route::post('/works/{work}/attachments', 'AttachmentController@store')->name('works.attachments.store')->middleware('permission:works.attachments.create');
-Route::delete('/works/{work}/attachments/{attachment}', 'AttachmentController@destroy')->name('works.attachments.destroy')->middleware('permission:works.attachments.destroy');
+Route::get('/work/{work}/attachments/{attachment}', 'AttachmentController@show')->name('works.attachments.show')->middleware('permission:works.attachments.view');
+Route::post('/work/{work}/attachments', 'AttachmentController@store')->name('works.attachments.store')->middleware('permission:works.attachments.create');
+Route::delete('/work/{work}/attachments/{attachment}', 'AttachmentController@destroy')->name('works.attachments.destroy')->middleware('permission:works.attachments.destroy');
+Route::post('/work/{work}/feedback', 'FeedbackController@store')->name('works.feedbacks.store')->middleware('permission:works.feedbacks.create');
+Route::delete('/work/{work}/feedback/{feedback}', 'FeedbackController@destroy')->name('works.feedbacks.destroy')->middleware('permission:works.feedbacks.destroy');

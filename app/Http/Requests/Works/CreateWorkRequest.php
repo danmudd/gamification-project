@@ -10,7 +10,6 @@ class CreateWorkRequest extends BaseRequest
     {
         return [
             'module_id' => 'bail|required|exists:roles,id',
-            'user_id' => 'bail|exists:users,id',
             'title' => 'bail|required|string',
             'description' => 'bail|nullable|string'
         ];

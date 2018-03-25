@@ -9,34 +9,36 @@
 
     <div class="row">
         <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <h4 class="pull-left">Details</h4>
-                    @permission('modules.update')
-                    <div class="input-group pull-right">
-                        <button class="btn btn-primary edit-module">Edit</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="pull-left">Details</h4>
+                            @permission('modules.update')
+                            <div class="input-group pull-right">
+                                <button class="btn btn-primary edit-module">Edit</button>
+                            </div>
+                            @endpermission
+                        </div>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>Code:</td>
+                                <td width="50%">{{ $module->code }}</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>{{ $module->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>{{ $module->description }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    @endpermission
                 </div>
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td>Code:</td>
-                        <td width="50%">{{ $module->code }}</td>
-                    </tr>
-                    <tr>
-                        <td>Name</td>
-                        <td>{{ $module->name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td>{{ $module->description }}</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
-        </div>
-        <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
@@ -60,7 +62,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($module->members as $user)
+                            @foreach($module->users as $user)
                                 <tr>
                                     <td><a href="{{ route('users.show', ['id' => $user->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
                                     <td>{{ $user->username }}</td>
@@ -79,6 +81,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
@@ -90,8 +94,8 @@
                             <tr>
                                 <th><span class="glyphicon glyphicon-th-list"></span></th>
                                 <th>Name</th>
-                                <th>Module Code</th>
                                 <th>Title</th>
+                                <th>Comments</th>
                                 <th>Created</th>
                             </tr>
                             </thead>
@@ -100,8 +104,8 @@
                                 <tr>
                                     <td><a href="{{ route('works.show', ['id' => $work->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
                                     <td><a href="{{ route('users.show', ['id' => $work->user->id]) }}">{{ $work->user->full_name }}</a></td>
-                                    <td><a href="{{ route('modules.show', ['id' => $work->module->id]) }}">{{ $work->module->code }}</a></td>
                                     <td>{{ $work->title}}</td>
+                                    <td>{{ count($work->feedbacks) }}</td>
                                     <td>{{ $work->created_at->format('jS F Y H:i:s') }}</td>
                                 </tr>
                             @endforeach

@@ -22,11 +22,19 @@ class ModuleController extends Controller
 
     public function index()
     {
-        $modules = $this->modules->getAll();
+        $modules = [];
+        $user = \Auth::user();
+        if($user->can('modules.view-all'))
+        {
+            $modules = $this->modules->getAll();
+        }
+        else
+        {
+            $modules = $user->modules;
+        }
 
         return view('modules.list', compact('modules'));
     }
-
 
     public function store(CreateModuleRequest $request)
     {
@@ -40,6 +48,8 @@ class ModuleController extends Controller
     public function show($id)
     {
         $module = $this->modules->get($id);
+
+        $this->authorize('show', $module);
         $userlist = $this->users->getAll();
         return view('modules.view', compact('module', 'userlist'));
     }

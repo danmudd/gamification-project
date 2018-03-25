@@ -40,6 +40,22 @@ class CreateWorksTable extends Migration
 
             $table->foreign('work_id')->references('id')->on('works')->onUpdate('cascade')->onDelete('restrict');
         });
+
+        Schema::create('feedbacks', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('work_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->text('positive_feedback')->nullable();
+            $table->text('negative_feedback')->nullable();
+            $table->text('misc_feedback')->nullable();
+
+            // Replace ->timestamps() function and set defaults.
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
+            $table->foreign('work_id')->references('id')->on('works')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+        });
     }
 
     /**
@@ -49,6 +65,7 @@ class CreateWorksTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('feedbacks');
         Schema::dropIfExists('attachments');
         Schema::dropIfExists('works');
     }

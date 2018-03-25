@@ -23,7 +23,12 @@
                         <td><span class="glyphicon glyphicon-user"></span></td><td>{{ $user->full_name }}</td>
                     </tr>
                     <tr>
-                        <td><span class="glyphicon glyphicon-tag"></span></td><td>{{ $user->roles->first() ? $user->roles->first()->display_name : 'None!' }}</td>
+                        <td><span class="glyphicon glyphicon-tag"></span></td><td>
+                            @if($user->roles->first())
+                                <a href="{{ route('roles.show', ['id' => $user->roles->first()->id]) }}">{{ $user->roles->first()->display_name }}</a>
+                            @else
+                                None!
+                            @endif</td>
                     </tr>
                     <tr>
                         <td><span class="glyphicon glyphicon-envelope"></span></td><td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
