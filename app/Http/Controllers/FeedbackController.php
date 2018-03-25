@@ -41,10 +41,8 @@ class FeedbackController extends Controller
         }
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $work, $feedback)
     {
-        $feedback = $this->feedbacks->get($id);
-        $work_id = $feedback->application_id;
         $this->feedbacks->delete($feedback);
 
         if($request->ajax())
@@ -52,6 +50,6 @@ class FeedbackController extends Controller
             return response()->json();
         }
 
-        return redirect()->route('works.show', ['id' => $work_id]);
+        return redirect()->route('works.show', ['id' => $work]);
     }
 }

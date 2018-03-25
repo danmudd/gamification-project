@@ -72,7 +72,7 @@
                             <tbody>
                             @foreach($work->attachments as $attachment)
                                 <tr>
-                                    <td>{{ $attachment->id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td><a href="{{ route('works.attachments.show', [$work->id, $attachment->id]) }}">{{ $attachment->name . '.' .  pathinfo($attachment->path, PATHINFO_EXTENSION) }}</a></td>
                                     @canedit($work->user->id, 'works.attachments.destroy-all')
                                     <td>
@@ -109,7 +109,7 @@
                             <tbody>
                             @foreach($work->feedbacks as $feedback)
                                 <tr>
-                                    <td>{{ $feedback->id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td><a href="{{ route('users.show', ['id' => $feedback->user->id]) }}">{{ $feedback->user->full_name }}</a></td>
                                     <td>{{ $feedback->positive_feedback }}</td>
                                     <td>{{ $feedback->negative_feedback }}</td>
