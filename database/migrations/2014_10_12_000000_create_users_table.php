@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password', 60);
             $table->rememberToken();
+            $table->timestamp('last_login')->nullable();
 
             // Replace ->timestamps() function and set defaults.
             $table->timestamp('created_at')->useCurrent();

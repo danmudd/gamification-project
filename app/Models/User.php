@@ -42,6 +42,10 @@ class User extends Authenticatable
      */
     protected $appends = array('full_name');
 
+    protected $dates = [
+        'created_at', 'updated_at', 'last_login'
+    ];
+
     public function getFullNameAttribute()
     {
         return $this->first_name . " " . $this->last_name;

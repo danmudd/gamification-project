@@ -30,4 +30,9 @@ class Work extends Model
     {
         return $this->hasMany('App\Models\Feedback');
     }
+
+    public function getFeedbackCountAttribute()
+    {
+        return count($this->feedbacks);
+    }
 }

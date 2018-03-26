@@ -32,7 +32,8 @@ class LoginListener
 
         $user = $event->user;
 
-        $daydiff = $user->updated_at->diffInDays(Carbon::now());
+        $daydiff = isset($user->last_login) ? $user->last_login->diffInDays(Carbon::now()) : 1;
+
         if($daydiff == 1)
         {
             $user->addProgress($achievement, 1);
@@ -40,6 +41,10 @@ class LoginListener
         else if($daydiff > 1)
         {
             $user->resetProgress($achievement);
+            $user->addProgress($achievement, 1);
         }
+
+        $user->last_login = date('Y-m-d H:i:s');
+        $user->save();
     }
 }

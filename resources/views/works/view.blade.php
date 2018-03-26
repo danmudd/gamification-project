@@ -107,7 +107,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($work->feedbacks as $feedback)
+                            @php($feedbacks = ($work->user->id == Auth::id() || Auth::user()->can('works.feedbacks.view-all') ? $work->feedbacks : $work->feedbacks->where('user_id', Auth::id())))
+                            @foreach($feedbacks as $feedback)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td><a href="{{ route('users.show', ['id' => $feedback->user->id]) }}">{{ $feedback->user->full_name }}</a></td>

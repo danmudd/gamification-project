@@ -86,12 +86,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($user->works as $work)
+                            @foreach($user->works->sortBy(function($item){return $item->feedbackCount.'#'.$item->created_at;}) as $work)
                                 <tr>
                                     <td><a href="{{ route('works.show', ['id' => $work->id]) }}"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
                                     <td><a href="{{ route('modules.show', ['id' => $work->module->id]) }}">{{ $work->module->code }}</a></td>
                                     <td>{{ $work->title}}</td>
-                                    <td>{{ count($work->feedbacks) }}</td>
+                                    <td>{{ $work->feedbackCount }}</td>
                                     <td>{{ $work->created_at->format('jS F Y H:i:s') }}</td>
                                 </tr>
                             @endforeach
