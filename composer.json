@@ -9,6 +9,7 @@
         "barryvdh/laravel-ide-helper": "^2.4",
         "fideloper/proxy": "~4.0",
         "galahad/bootforms": "^1.1",
+        "gstt/laravel-achievements": "dev-master",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
         "tucker-eric/eloquentfilter": "^1.2",

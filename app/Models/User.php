@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use EloquentFilter\Filterable;
+use Gstt\Achievements\Achiever;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +12,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable, EntrustUserTrait, Filterable, Authorizable {
+    use Notifiable, EntrustUserTrait, Filterable, Authorizable, Achiever {
         Authorizable::can as may;
         EntrustUserTrait::can insteadof Authorizable;
     }

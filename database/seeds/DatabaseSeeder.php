@@ -1,5 +1,6 @@
 <?php
 
+use App\Achievements\FeedbackWorkWithNoFeedback;
 use App\Models\Module;
 use App\Models\Permission;
 use App\Models\Role;
@@ -392,12 +393,21 @@ class DatabaseSeeder extends Seeder
 
         $work = Work::create(
             [
-                'user_id' => 1,
+                'user_id' => 3,
                 'module_id' => 1,
                 'title' => "Test",
                 'description' => 'Test description'
             ]
         );
+
+        new \App\Achievements\UserFirstWork();
+        new \App\Achievements\User15Works();
+        new \App\Achievements\UserFirstFeedback();
+        new \App\Achievements\User15Feedbacks();
+        new FeedbackWorkWithNoFeedback();
+        new \App\Achievements\Login5ConsecutiveDays();
+        new \App\Achievements\UserExceptionalFeedback();
+        new \App\Achievements\UserExceptionalWork();
 
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Events\WorkCreated;
 use App\Http\Requests\Roles\CreateRoleRequest;
 use App\Http\Requests\Roles\UpdateRoleRequest;
 use App\Http\Requests\Roles\AddRolePermissionRequest;
@@ -51,8 +52,8 @@ class WorkController extends Controller
         $module = $this->modules->get($attributes['module_id']);
         if($user->may('show', $module))
         {
-
-            $this->works->create($attributes);
+            $work = $this->works->create($attributes);
+            event(new WorkCreated($work));
         }
 
         return redirect()->route('works.index');

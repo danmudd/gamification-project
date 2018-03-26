@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f78379c0763f153fb2bf1e877808065",
+    "content-hash": "8d068a709a62389c7e5aba8f07561f94",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -607,6 +607,50 @@
             ],
             "description": "Base for builder",
             "time": "2018-02-19T18:37:49+00:00"
+        },
+        {
+            "name": "gstt/laravel-achievements",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gstt/laravel-achievements.git",
+                "reference": "b5ea8f027666e4ef39f91213732e8268c7d2b775"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gstt/laravel-achievements/zipball/b5ea8f027666e4ef39f91213732e8268c7d2b775",
+                "reference": "b5ea8f027666e4ef39f91213732e8268c7d2b775",
+                "shasum": ""
+            },
+            "require": {
+                "ramsey/uuid": "^3.5"
+            },
+            "require-dev": {
+                "laravel/laravel": "^5.3",
+                "phpunit/phpunit": "^5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/Migrations"
+                ],
+                "psr-4": {
+                    "Gstt\\Achievements\\": "src/",
+                    "Gstt\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gabriel Simonetti",
+                    "email": "simonettigo@gmail.com"
+                }
+            ],
+            "description": "Achievements for Laravel 5.3+",
+            "time": "2018-03-13T19:03:26+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -4446,6 +4490,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "gstt/laravel-achievements": 20,
         "zizaco/entrust": 20
     },
     "prefer-stable": true,

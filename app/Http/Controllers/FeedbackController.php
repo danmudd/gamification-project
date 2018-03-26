@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\FeedbackCreated;
 use App\Http\Requests\Works\CreateFeedbackRequest;
 use App\Models\Work;
 use App\Repositories\Works\IFeedbackRepository;
@@ -28,6 +29,8 @@ class FeedbackController extends Controller
             $attributes['user_id'] = \Auth::user()->id;
             $attributes['work_id'] = $work->id;
             $feedback = $this->feedbacks->create($attributes);
+
+            event(new FeedbackCreated($feedback));
 
             if ($request->ajax()) {
                 return response()->json();

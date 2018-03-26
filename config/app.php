@@ -166,6 +166,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         EloquentFilter\ServiceProvider::class,
         Galahad\BootForms\BootFormsServiceProvider::class,
+        Gstt\Achievements\AchievementsServiceProvider::class,
 
     ],
 

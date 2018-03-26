@@ -33,6 +33,6 @@ class ApplicationRepositoryProvider extends ServiceProvider
         $this->app->bind('App\Repositories\Modules\IModuleRepository', 'App\Repositories\Modules\ModuleRepository');
         $this->app->bind('App\Repositories\Works\IWorkRepository', 'App\Repositories\Works\WorkRepository');
         $this->app->bind('App\Repositories\Works\IAttachmentRepository', 'App\Repositories\Works\AttachmentRepository');
-        $this->app->bind('App\Repositories\Works\IFeedbackRepository', 'App\Repositories\Works\FeedbackRepository');
+        $this->app->bind('App\Repositories\Works\IFeedbackRepository', 'App\Repositories\Works\Feedback Repository');
     }
 }

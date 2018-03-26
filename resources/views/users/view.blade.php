@@ -69,8 +69,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
@@ -81,8 +79,10 @@
                             <thead>
                             <tr>
                                 <th><span class="glyphicon glyphicon-th-list"></span></th>
-                                <th>Code</th>
-                                <th>Name</th>
+                                <th>Module</th>
+                                <th>Title</th>
+                                <th>Comments</th>
+                                <th>Created</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -98,6 +98,30 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h4 class="pull-left">Achievements</h4>
+                </div>
+                <div class="panel-body">
+                    @foreach($user->achievements->sortBy('achievement_id')->chunk(3) as $chunkedAchievements)
+                    <div class="row">
+                        @foreach($chunkedAchievements as $achievement)
+                            <div class="col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-body text-center {{ $achievement->isUnlocked() ? 'bg-success' : ($achievement->points > 0 ? 'bg-warning' : 'bg-danger') }}">
+                                        <h3>{{ $achievement->details->name }}</h3>
+                                        <h4>{{ $achievement->details->description }}</h4>
+                                        <h5>Progress: {{ $achievement->isUnlocked() ? 'Unlocked!' : ($achievement->details->points > 1 ? $achievement->points . '/' . $achievement->details->points : 'Locked!') }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

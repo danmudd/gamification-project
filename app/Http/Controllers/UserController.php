@@ -67,6 +67,12 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
+    public function achievements($id)
+    {
+        $user = $this->user->get($id);
+        return view('users.achievements', compact('user'));
+    }
+
     public function search(SearchUserRequest $request)
     {
         $results =  $this->user->search($request->all());
