@@ -44,11 +44,6 @@
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="pull-left">Users</h4>
-                            @permission('modules.users.add')
-                            <div class="input-group pull-right">
-                                <button class="btn btn-success add-module-user">Add</button>
-                            </div>
-                            @endpermission
                         </div>
                         <table class="table">
                             <thead>
@@ -77,7 +72,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <h4 class="pull-left">Permissions</h4>
-                    @permission('roles.permissions.add')
+                    @permission('roles.update')
                     <div class="input-group pull-right">
                         <button class="btn btn-primary add-permission">Add</button>
                     </div>
@@ -91,7 +86,7 @@
                             <th>Name</th>
                             <th>Display Name</th>
                             <th>Description</th>
-                            @permission('roles.permissions.remove')
+                            @permission('roles.update')
                             <th width="5%">Action</th>
                             @endpermission
                         </tr>
@@ -103,7 +98,7 @@
                                 <td>{{ $permission->name }}</td>
                                 <td>{{ $permission->display_name }}</td>
                                 <td>{{ $permission->description}}</td>
-                                @permission('roles.permissions.remove')
+                                @permission('roles.update')
                                 <td>
                                     {!!  BootForm::open()->action(route('roles.permissions.remove', array($role->id,$permission->id)))->delete()->addClass('confirm-form') !!}
                                     {!! BootForm::submit('<span class="glyphicon glyphicon-remove"></span>')->addClass('btn-danger btn-sm btn-block') !!}
