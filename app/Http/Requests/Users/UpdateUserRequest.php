@@ -11,7 +11,7 @@ class UpdateUserRequest extends BaseRequest
         $id = $this->id;
         return [
             'id' => 'bail|exists:users,id',
-            'username' => 'bail|alphanum|unique:users,username,' . $id,
+            'username' => 'bail|required|unique:users,username,' . $id,
             'email' => 'bail|email|unique:users,email,' . $id,
             'password' => 'bail|confirmed',
 			'role' => 'bail|exists:roles,id'
