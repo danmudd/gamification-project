@@ -39,6 +39,7 @@ abstract class BaseRepository
     {
         $thing = $this->model->findOrFail($thing);
 
+
         $thing->fill($data);
         $thing->save();
 

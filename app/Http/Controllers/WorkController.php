@@ -7,6 +7,7 @@ use App\Http\Requests\Roles\UpdateRoleRequest;
 use App\Http\Requests\Roles\AddRolePermissionRequest;
 use App\Http\Requests\Roles\RemoveRolePermissionRequest;
 use App\Http\Requests\Works\CreateWorkRequest;
+use App\Http\Requests\Works\UpdateWorkRequest;
 use App\Models\User;
 use App\Repositories\Modules\IModuleRepository;
 use App\Repositories\Permissions\IPermissionRepository;
@@ -74,7 +75,14 @@ class WorkController extends Controller
         $this->authorize('update', $work);
 
         $attributes = $request->all();
-        $this->works->update($work, $attributes);
+
+        $user = \Auth::user();
+        $module = $this->modules->get($attributes['module_id']);
+
+        if($user->may('show', $module))
+        {
+            $this->works->update($id, $attributes);
+        }
 
         if($request->ajax())
         {

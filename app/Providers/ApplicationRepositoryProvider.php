@@ -14,10 +14,7 @@ class ApplicationRepositoryProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::directive('displaymoney', function($expression)
-        {
-           return "<?php echo (!empty($expression) ? '£' . number_format($expression, 2) : 'N/A') ?>";
-        });
+
     }
 
     /**

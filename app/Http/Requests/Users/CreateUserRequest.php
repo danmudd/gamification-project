@@ -9,7 +9,7 @@ class CreateUserRequest extends BaseRequest
     public function rules()
     {
         return [
-            'username' => 'bail|required|alphanum|unique:users,username',
+            'username' => 'bail|required|without_spaces|unique:users,username',
             'email' => 'bail|required|email|unique:users,email',
             'password' => 'bail|required|confirmed',
             'first_name' => 'bail|required',

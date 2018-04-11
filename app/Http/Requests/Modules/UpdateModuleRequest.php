@@ -10,9 +10,9 @@ class UpdateModuleRequest extends BaseRequest
     {
         $id = $this->id;
         return [
-            'id' => 'bail|exists:roles,id',
-            'code' => 'bail|required|alpha|unique:modules,code,' . $id,
-            'name' => 'bail|required|alpha',
+            'id' => 'bail|exists:modules,id',
+            'code' => 'bail|required|alpha_num|unique:modules,code,' . $id,
+            'name' => 'bail|required|string',
             'description' => 'bail|nullable|string'
         ];
     }

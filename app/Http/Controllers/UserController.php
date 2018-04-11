@@ -26,7 +26,6 @@ class UserController extends Controller
         return view('users.list', compact('users'));
     }
 
-    // DEPRECATED.
     public function create()
     {
         $roles = $this->role->getRoleArray();
