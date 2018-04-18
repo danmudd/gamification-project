@@ -36,6 +36,10 @@
                         <td>Description</td>
                         <td>{{ $work->description }}</td>
                     </tr>
+                    <tr>
+                        <td>Created:</td>
+                        <td>{{ $work->created_at->format('jS F Y H:i:s') }}</td>
+                    </tr>
                     </tbody>
                 </table>
                 @if(Auth::id() != $work->user_id)

@@ -105,6 +105,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <h4 class="pull-left">Achievements</h4>
+                    @permission('users.achievements.give')
+                    <div class="input-group pull-right">
+                        <button class="btn btn-primary give-achievement">Give Achievement</button>
+                    </div>
+                    @endpermission
                 </div>
                 <div class="panel-body">
                     @foreach($user->achievements->sortBy('achievement_id')->chunk(3) as $chunkedAchievements)
@@ -113,6 +118,7 @@
                             <div class="col-md-4">
                                 <div class="panel panel-default">
                                     <div class="panel-body text-center {{ $achievement->isUnlocked() ? 'bg-success' : ($achievement->points > 0 ? 'bg-warning' : 'bg-danger') }}">
+                                        <img src="{{ asset('img/gamification/' . $achievement->achievement_id) . '.png'}}"  width="150" style="margin: 0" class="img-circle">
                                         <h3>{{ $achievement->details->name }}</h3>
                                         <h4>{{ $achievement->details->description }}</h4>
                                         <h5>Progress: {{ $achievement->isUnlocked() ? 'Unlocked!' : ($achievement->details->points > 1 ? $achievement->points . '/' . $achievement->details->points : 'Locked!') }}</h5>
@@ -172,6 +178,41 @@
             });
         });
         @endcanedit
+
+        @permission('users.achievements.give')
+        $('.give-achievement').click(function() {
+            bootbox.dialog({
+                title: 'Give Achievement',
+                message:
+                '{!!  BootForm::open()->action(route('users.achievements.give', $user->id))->addClass('bootstrap-modal-form')->id('give_achievement') !!}' +
+                '{!! BootForm::select('Achievement', 'achievement', $achievements) !!}' +
+                '{!! BootForm::close() !!}',
+                buttons: {
+                    cancel:{
+                        label: "Cancel",
+                        className: "btn-default",
+                    },
+                    submit:{
+                        label: "Submit",
+                        className: "btn-primary btn-submit",
+                        callback: function() {
+                            //post the data
+                            $('#give_achievement').submit();
+                            return false;
+                        }
+                    }
+                },
+                backdrop: true,
+                onEscape: true
+            }).init(function() {
+                $('#give_achievement').on('submit', function(submission)
+                {
+                    $this = $(this);
+                    $.submitModalForm(submission);
+                });
+            });
+        });
+        @endpermission
     });
 </script>
 @endpush

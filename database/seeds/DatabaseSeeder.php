@@ -1,6 +1,5 @@
 <?php
 
-use App\Achievements\FeedbackWorkWithNoFeedback;
 use App\Models\Module;
 use App\Models\Permission;
 use App\Models\Role;
@@ -248,6 +247,13 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        $pGA = Permission::create(
+            [
+                'name' => 'users.achievements.give',
+                'display_name' => 'Give a user secret achievements'
+            ]
+        );
+
         $admin = User::create(
             [
                 'username' => 'admin',
@@ -357,9 +363,9 @@ class DatabaseSeeder extends Seeder
         $pMU = array($pMUA, $pMUR);
 
         // all perms
-        $adminRole->attachPermissions(array_merge($pU, $pR, $pM, $pW, $pWA, $pWF, $pMU));
-        $facultyRole->attachPermissions(array_merge(array($pUV, $pMV, $pMVA, $pRV, $pWV, $pWVA, $pWAV), $pWF, $pMU));
-        $moduleLeaderRole->attachPermissions(array_merge(array($pUV, $pRV), $pM, $pW, $pWA, $pWF, $pMU));
+        $adminRole->attachPermissions(array_merge(array($pGA), $pU, $pR, $pM, $pW, $pWA, $pWF, $pMU));
+        $facultyRole->attachPermissions(array_merge(array($pGA, $pUV, $pMV, $pMVA, $pRV, $pWV, $pWVA, $pWAV), $pWF, $pMU));
+        $moduleLeaderRole->attachPermissions(array_merge(array($pGA, $pUV, $pRV), $pM, $pW, $pWA, $pWF, $pMU));
         $studentRole->attachPermissions(array($pUV, $pRV, $pMV, $pWV, $pWC, $pWD, $pWU, $pWAC, $pWAV, $pWAD, $pWFC, $pWFD, $pWFV));
         $testRole->attachPermissions(array($pRV, $pUV, $pMV, $pWV));
 
@@ -404,7 +410,7 @@ class DatabaseSeeder extends Seeder
         new \App\Achievements\User15Works();
         new \App\Achievements\UserFirstFeedback();
         new \App\Achievements\User15Feedbacks();
-        new FeedbackWorkWithNoFeedback();
+        new \App\Achievements\FeedbackWorkWithNoFeedback();
         new \App\Achievements\Login5ConsecutiveDays();
         new \App\Achievements\UserExceptionalFeedback();
         new \App\Achievements\UserExceptionalWork();

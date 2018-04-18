@@ -1,9 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Achievements\UserExceptionalFeedback;
+use App\Achievements\UserExceptionalWork;
 use App\Http\Requests\Users\CreateUserRequest;
+use App\Http\Requests\Users\GiveAchievementRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Requests\Users\SearchUserRequest;
+use App\Models\User;
 use App\Repositories\Roles\IRoleRepository;
 use App\Repositories\Users\IUserRepository;
 
@@ -44,7 +48,14 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->user->get($id);
-        return view('users.view', compact('user'));
+        $achievements = collect([new UserExceptionalFeedback(), new UserExceptionalWork()]);
+        $achievements = $achievements->mapWithKeys(function ($item)
+        {
+            $model = $item->getModel();
+            return [str_replace('\\', '\\\\', $model->class_name) => $model->name];
+        });
+
+        return view('users.view', compact('user', 'achievements'));
     }
 
     public function update(UpdateUserRequest $request, $user)
@@ -66,16 +77,10 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function achievements($id)
+    public function giveAchievement(GiveAchievementRequest $request, $user)
     {
-        $user = $this->user->get($id);
-        return view('users.achievements', compact('user'));
-    }
-
-    public function search(SearchUserRequest $request)
-    {
-        $results =  $this->user->search($request->all());
-
-        return $results;
+        $user = $this->user->get($user);
+        $attributes = $request->all();
+        $user->unlock(new $attributes['achievement']());
     }
 }

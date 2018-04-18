@@ -26,7 +26,7 @@ Route::post('/users', 'UserController@store')->name('users.store')->middleware('
 Route::get('/users/{user}', 'UserController@show')->name('users.show')->middleware('permission:users.view');
 Route::put('/users/{user}', 'UserController@update')->name('users.update')->middleware('permission:users.update');
 Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy')->middleware('permission:users.destroy');
-Route::get('/users/{user}/achievements', 'UserController@achievements')->name('users.achievements');
+Route::post('/users/{user}/achievements', 'UserController@giveAchievement')->name('users.achievements.give')->middleware('permission:users.achievements.give');
 
 Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('permission:roles.view');
 Route::post('/roles', 'RoleController@store')->name('roles.store')->middleware('permission:roles.create');
