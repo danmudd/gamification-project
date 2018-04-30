@@ -11,7 +11,11 @@ class RoleRepository extends BaseRepository implements IRoleRepository
     {
         $this->model = $model;
     }
-	
+
+    /**
+     * @param array $with array of models to eager load
+     * @return mixed array of id to role name
+     */
 	public function getRoleArray()
 	{
 		$stuff = $this->getAll();

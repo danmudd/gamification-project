@@ -26,12 +26,6 @@ class RoleController extends Controller
         return view('roles.list', compact('roles'));
     }
 
-    // DEPRECATED.
-    public function create()
-    {
-        return view('roles.create');
-    }
-
     public function store(CreateRoleRequest $request)
     {
         $attributes = $request->all();

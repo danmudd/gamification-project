@@ -30,12 +30,6 @@ class UserController extends Controller
         return view('users.list', compact('users'));
     }
 
-    public function create()
-    {
-        $roles = $this->role->getRoleArray();
-        return view('users.create', compact('roles'));
-    }
-
     public function store(CreateUserRequest $request)
     {
         $attributes = $request->all();

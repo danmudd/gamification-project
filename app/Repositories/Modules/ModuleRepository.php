@@ -12,6 +12,10 @@ class ModuleRepository extends BaseRepository implements IModuleRepository
         $this->model = $model;
     }
 
+    /**
+     * @param array $with array of models to eager load
+     * @return mixed array of id to module and code
+     */
     public function getModuleArray($with = array())
     {
         $stuff = $this->getAll();
@@ -22,6 +26,12 @@ class ModuleRepository extends BaseRepository implements IModuleRepository
         });
     }
 
+    /**
+     * Adds a user to a module
+     *
+     * @param $module module to add user to
+     * @param $thing User to add
+     */
     public function addUser($module, $thing)
     {
         $module = $this->model->find($module);
@@ -29,6 +39,12 @@ class ModuleRepository extends BaseRepository implements IModuleRepository
         $module->users()->attach(array_keys($thing["users"]));
     }
 
+    /**
+     * Removes a user from a module
+     *
+     * @param $module module to remove a user from
+     * @param $thing user to remove
+     */
     public function removeUser($module, $thing)
     {
         $module = $this->model->find($module);

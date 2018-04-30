@@ -9,6 +9,7 @@ class Attachment extends Model
         'name'
     ];
 
+    // magic method defining work relationship
     public function work()
     {
         return $this->belongsTo('App\Models\Work');

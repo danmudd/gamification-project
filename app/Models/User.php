@@ -51,21 +51,29 @@ class User extends Authenticatable
         return $this->first_name . " " . $this->last_name;
     }
 
+    // magic method for all comments the user has made
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
     }
 
+    // magic method for all modules the user is a part of
     public function modules()
     {
         return $this->belongsToMany('App\Models\Module');
     }
 
+    // magic method for all works the user has created
     public function works()
     {
         return $this->hasMany('App\Models\Work');
     }
 
+    /**
+     * Gets all modules the user is a member of as a readable array
+     *
+     * @return array array of id to module name and code
+     */
     public function getModuleArray()
     {
         return $this->getRelationValue('modules')->mapWithKeys(function($item)

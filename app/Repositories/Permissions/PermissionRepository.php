@@ -12,6 +12,10 @@ class PermissionRepository extends BaseRepository implements IPermissionReposito
         $this->model = $model;
     }
 
+    /**
+     * @param array $with array of models to eager load
+     * @return mixed array of id to permission name
+     */
     public function getPermissionArray()
     {
         $stuff = $this->getAll();

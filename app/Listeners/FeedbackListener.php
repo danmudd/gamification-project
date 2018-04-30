@@ -36,6 +36,7 @@ class FeedbackListener
         $user->unlock(new UserFirstFeedback());
         $user->addProgress(new User15Feedbacks(), 1);
 
+        // check if work had 0 feedbacks
         $req = $feedback->work()->withCount('feedbacks')->first();
         if($req->feedbacks_count == 1)
         {

@@ -14,11 +14,13 @@ class Feedback extends Model
         'misc_feedback',
     ];
 
+    // Magic method defining work relationship
     public function work()
     {
         return $this->belongsTo('App\Models\Work');
     }
 
+    // Magic method defining user who owns feedback
     public function user()
     {
         return $this->belongsTo('App\Models\User');

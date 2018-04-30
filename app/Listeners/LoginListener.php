@@ -32,6 +32,7 @@ class LoginListener
 
         $user = $event->user;
 
+        // code for consecutive logins
         $daydiff = isset($user->last_login) ? $user->last_login->diffInDays(Carbon::now()) : 1;
 
         if($daydiff == 1)
